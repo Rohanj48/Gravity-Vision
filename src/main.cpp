@@ -1,7 +1,9 @@
 
 #include "raylib.h"
-#include "ui/UIManager.hpp"
 #include <math.h>
+
+#include "ui/UIManager.hpp"
+#include "physics/physicsManager.hpp"
 int main(void)
 {
 
@@ -10,14 +12,15 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "Gravity-Vision 0.1");
 
-    UIManager uIManager;
-
     // ezy way fr now
     Camera2D camera = {0};
     camera.target = (Vector2){0, 0};
     camera.offset = (Vector2){screenWidth / 2.0f, screenHeight / 2.0f};
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
+
+    UIManager uIManager;
+    PhysicsManager physicsManager(camera);
 
     SetTargetFPS(60);
 
@@ -26,6 +29,14 @@ int main(void)
         // Update
         camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
 
+        if (IsKeyDown(KEY_A))
+        {
+            physicsManager.drawDummySphere(GetMousePosition());
+        }
+        if (IsKeyReleased(KEY_A))
+        {
+            physicsManager.addSphere(GetMousePosition());
+        }
         // Draw on the screen
         BeginDrawing();
 
@@ -35,7 +46,8 @@ int main(void)
         BeginMode2D(camera);
         {
             // Draw with in the Cameraa
-            DrawText("Gravity-Vision", 0, 0, 20, WHITE);
+
+            physicsManager.draw();
         }
         EndMode2D();
 

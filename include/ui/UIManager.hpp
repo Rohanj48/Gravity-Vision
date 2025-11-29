@@ -11,6 +11,10 @@ public:
 private:
     int screenWidth;
     int screenHeight;
+    int textFontSize;
 
-    Rectangle addButtonRect;
+    Rectangle infoWindowRect;
+    Color infoWindowColor;
+
+    const char *LINE_1_TEXT = "Press 'A' show object, release to place it";
 };
