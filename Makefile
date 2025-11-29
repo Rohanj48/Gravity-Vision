@@ -5,7 +5,7 @@ CXXFLAGS = -Iinclude -std=c++17 -Wall
 # Linker flags for raylib on Windows (MinGW)
 LDFLAGS = -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
 
-SRC = src/main.cpp
+SRC = $(shell find src -name "*.cpp")
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/app.exe
 
