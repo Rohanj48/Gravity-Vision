@@ -1,0 +1,4 @@
+.vscode
+Gravity-Vision.code-workspace
+
+/build/*.exe
