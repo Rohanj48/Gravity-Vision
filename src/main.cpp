@@ -4,6 +4,7 @@
 
 #include "ui/UIManager.hpp"
 #include "physics/physicsManager.hpp"
+#include "utils/logger.hpp"
 int main(void)
 {
 
@@ -36,7 +37,12 @@ int main(void)
         if (IsKeyReleased(KEY_A))
         {
             physicsManager.addSphere(GetMousePosition());
+            Logger::log("From Main", GetMousePosition());
         }
+
+        physicsManager.applyForce();
+        physicsManager.update();
+
         // Draw on the screen
         BeginDrawing();
 

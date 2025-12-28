@@ -13,6 +13,7 @@ public:
 
     void addSphere(Vector2 pos);
     void drawDummySphere(Vector2 pos);
+    void applyForce();
 
 private:
     Camera2D camera;

@@ -2,7 +2,6 @@
 #define PHYSICS_SPHERE_HPP
 
 #include "raylib.h"
-
 class Sphere
 {
 public:
@@ -11,8 +10,16 @@ public:
     void draw();
     void drawAt(Vector2 givenPos);
 
-private:
+    void setAccn(Vector2 accn);
+    void addAccn(Vector2 accn);
+    void setVelocity(Vector2 vel);
+    void setPosition(Vector2 pos);
+    void update();
+
     Vector2 pos;
+    Vector2 velocity;
+    Vector2 accN;
+
     float radius;
     float mass;
 
