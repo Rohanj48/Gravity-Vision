@@ -1,44 +1,31 @@
 
 #include "raylib.h"
-#include <math.h>
 
 #include "ui/UIManager.hpp"
 #include "physics/physicsManager.hpp"
 #include "utils/logger.hpp"
+#include "camera/cameraManager.hpp"
+#include "utils/config.hpp"
 int main(void)
 {
 
-    const int screenWidth = 1600;
-    const int screenHeight = 1200;
+    const int screenWidth = Config::ScreenWidth;
+    const int screenHeight = Config::ScreenHeight;
 
-    InitWindow(screenWidth, screenHeight, "Gravity-Vision 0.1");
+    InitWindow(screenWidth, screenHeight, Config::WindowTitle);
 
-    // ezy way fr now
-    Camera2D camera = {0};
-    camera.target = (Vector2){0, 0};
-    camera.offset = (Vector2){screenWidth / 2.0f, screenHeight / 2.0f};
-    camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    CameraManager cameraManager;
 
     UIManager uIManager;
-    PhysicsManager physicsManager(camera);
+    PhysicsManager physicsManager(cameraManager.getCamera());
 
-    SetTargetFPS(60);
+    SetTargetFPS(Config::Fps);
 
     while (!WindowShouldClose())
     {
         // Update
-        camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove() * 0.1f));
 
-        if (IsKeyDown(KEY_A))
-        {
-            physicsManager.drawDummySphere(GetMousePosition());
-        }
-        if (IsKeyReleased(KEY_A))
-        {
-            physicsManager.addSphere(GetMousePosition());
-            Logger::log("From Main", GetMousePosition());
-        }
+        cameraManager.update();
 
         physicsManager.applyForce();
         physicsManager.update();
@@ -49,7 +36,7 @@ int main(void)
         ClearBackground(BLACK);
         uIManager.render();
 
-        BeginMode2D(camera);
+        BeginMode2D(cameraManager.getCamera());
         {
             // Draw with in the Cameraa
 

@@ -12,14 +12,15 @@ public:
     void draw();
 
     void addSphere(Vector2 pos);
-    void drawDummySphere(Vector2 pos);
+    void drawPreviewSphere(Vector2 pos);
     void applyForce();
 
 private:
-    Camera2D camera;
+    bool isPreviewingSphere = false;
+    Camera2D &camera;
 
     std::vector<Sphere> spheres;
-    Sphere dummySphere;
+    Sphere previewSphere;
 };
 
 #endif // PHYSICS_PHYSICSMANAGER_HPP

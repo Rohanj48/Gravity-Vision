@@ -5,7 +5,7 @@
 #include "utils/logger.hpp"
 #include <iostream>
 
-PhysicsManager::PhysicsManager(Camera2D &camera) : camera(camera), dummySphere(Sphere(Vector2{100, 100}))
+PhysicsManager::PhysicsManager(Camera2D &camera) : camera(camera), previewSphere(Sphere(Vector2{100, 100}))
 {
 }
 
@@ -18,9 +18,9 @@ void PhysicsManager::addSphere(Vector2 pos)
     Logger::log("Camera Zoom", camera.zoom);
 }
 
-void PhysicsManager::drawDummySphere(Vector2 pos)
+void PhysicsManager::drawPreviewSphere(Vector2 pos)
 {
-    dummySphere.drawAt(pos);
+    previewSphere.drawAt(pos);
 }
 
 // Applies the gravity and also handles if collision Takes place
@@ -100,17 +100,35 @@ void PhysicsManager::applyForce()
         }
     }
 }
-
+// Called Above the camera
 void PhysicsManager::update()
 {
+    // Check if is preview sets the var so it can be drawn in draw part
+    if (IsKeyDown(KEY_Z))
+        isPreviewingSphere = true;
+
+    if (IsKeyReleased(KEY_Z))
+    {
+        addSphere(GetMousePosition());
+        isPreviewingSphere = false;
+    }
+
     for (auto &x : spheres)
     {
         x.update();
     }
 }
 
+// Called inside the camera
 void PhysicsManager::draw()
 {
+    // Show preview Sphere
+    if (isPreviewingSphere)
+    {
+        Vector2 worldMouse = GetScreenToWorld2D(GetMousePosition(), camera);
+        drawPreviewSphere(worldMouse);
+    }
+
     for (auto &x : spheres)
     {
         // std::cout << "yess";

@@ -16,5 +16,5 @@ private:
     Rectangle infoWindowRect;
     Color infoWindowColor;
 
-    const char *LINE_1_TEXT = "Press 'A' show object, release to place it";
+    const char *LINE_1_TEXT = "Press 'Z' show object, release to place it";
 };
