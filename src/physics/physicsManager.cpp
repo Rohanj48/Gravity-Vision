@@ -9,18 +9,33 @@ PhysicsManager::PhysicsManager(Camera2D &camera) : camera(camera), previewSphere
 {
 }
 
-void PhysicsManager::addSphere(Vector2 pos)
+void PhysicsManager::addSphere(Sphere newSphere)
 {
-    spheres.emplace_back(GetScreenToWorld2D(pos, camera));
-    Logger::log("From Physics Manager ", GetScreenToWorld2D(pos, camera));
+    spheres.emplace_back(std::move(newSphere));
+    Logger::log("From Physics Manager ", newSphere.pos);
     Logger::log("Camera Target", camera.target);
     Logger::log("Camera Offset", camera.offset);
     Logger::log("Camera Zoom", camera.zoom);
 }
 
+void PhysicsManager::setPreviewSphere(const Sphere &s)
+{
+    previewSphere = s;
+}
+
+void PhysicsManager::setIsPreviewing(bool isPreviewing)
+{
+    isPreviewingSphere = isPreviewing;
+}
+
 void PhysicsManager::drawPreviewSphere(Vector2 pos)
 {
     previewSphere.drawAt(pos);
+    if (Vector2Length(previewSphere.velocity) > 0)
+    {
+        Vector2 direction = Vector2Scale(previewSphere.velocity, 1.0f);
+        DrawLineV(pos, Vector2Add(pos, direction), previewSphere.color);
+    }
 }
 
 // Applies the gravity and also handles if collision Takes place
@@ -103,15 +118,7 @@ void PhysicsManager::applyForce()
 // Called Above the camera
 void PhysicsManager::update()
 {
-    // Check if is preview sets the var so it can be drawn in draw part
-    if (IsKeyDown(KEY_Z))
-        isPreviewingSphere = true;
-
-    if (IsKeyReleased(KEY_Z))
-    {
-        addSphere(GetMousePosition());
-        isPreviewingSphere = false;
-    }
+    // Input handling moved to InputManager
 
     for (auto &x : spheres)
     {

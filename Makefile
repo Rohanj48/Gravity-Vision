@@ -1,6 +1,6 @@
 # Compiler
 CXX = g++
-CXXFLAGS = -Iinclude -std=c++17 -Wall
+CXXFLAGS = -Iinclude -std=c++17 -Wall -g
 
 # Linker flags for raylib on Windows (MinGW)
 LDFLAGS = -Llib -lraylib -lopengl32 -lgdi32 -lwinmm

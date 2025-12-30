@@ -11,9 +11,12 @@ public:
     void update();
     void draw();
 
-    void addSphere(Vector2 pos);
+    void addSphere(Sphere newSphere);
+    void setPreviewSphere(const Sphere &s);
+    void setIsPreviewing(bool isPreviewing);
     void drawPreviewSphere(Vector2 pos);
     void applyForce();
+    Vector2 getScreenToWorld(Vector2 screenPos);
 
 private:
     bool isPreviewingSphere = false;

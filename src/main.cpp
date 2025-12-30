@@ -3,6 +3,7 @@
 
 #include "ui/UIManager.hpp"
 #include "physics/physicsManager.hpp"
+#include "input/inputManager.hpp"
 #include "utils/logger.hpp"
 #include "camera/cameraManager.hpp"
 #include "utils/config.hpp"
@@ -18,6 +19,7 @@ int main(void)
 
     UIManager uIManager;
     PhysicsManager physicsManager(cameraManager.getCamera());
+    InputManager inputManager(physicsManager, uIManager, cameraManager.getCamera());
 
     SetTargetFPS(Config::Fps);
 
@@ -26,6 +28,7 @@ int main(void)
         // Update
 
         cameraManager.update();
+        inputManager.update();
 
         physicsManager.applyForce();
         physicsManager.update();

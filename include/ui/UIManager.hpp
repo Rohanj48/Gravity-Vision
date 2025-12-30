@@ -1,4 +1,5 @@
-
+#ifndef UI_UIMANAGER_HPP
+#define UI_UIMANAGER_HPP
 #include "raylib.h"
 
 class UIManager
@@ -18,3 +19,5 @@ private:
 
     const char *LINE_1_TEXT = "Press 'Z' show object, release to place it";
 };
+
+#endif
