@@ -25,7 +25,7 @@ void InputManager::handleNewSphereAdd()
         {KEY_Z, 10.0f, 100.0f, YELLOW, {0.0f, 0.0f}},
         {KEY_X, 20.0f, 500.0f, RED, {0.0f, 0.0f}},
         {KEY_C, 40.0f, 2000.0f, BLUE, {100.0f, 0.0f}},
-        {KEY_V, 80.0f, 10000.0f, PURPLE, {0.0f, -50.0f}}};
+        {KEY_V, 40.0f, 2000.0f, PURPLE, {0.0f, 0.0f}}};
 
     // 1. Update Preview State (While key is held)
     physicsManager.setIsPreviewing(false);
